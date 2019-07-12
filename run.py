@@ -7,10 +7,10 @@ import datetime
 
 #
 #hack to make the imports work correct
-print("adding libs to sys.path")
-sys.path.append("/home/pi/.local/lib/python3.7/site-package")
-print("debug:\t showing sys.path")
-print(sys.path)
+#print("adding libs to sys.path")
+#sys.path.append("/home/pi/.local/lib/python3.7/site-package")
+#print("debug:\t showing sys.path")
+#print(sys.path)
 #
 
 import feedparser
@@ -56,22 +56,22 @@ if len(sys.argv) ==3:
 mixer.music.load(BASE_DIR + alert_file)
 
 #inital load then loop it
-#url="https://access.active911.com/interface/rss.php?"+code
+url="https://access.active911.com/interface/rss.php?"+code
 	
-#feed = feedparser.parse(url)
+feed_deptname = feedparser.parse(url)
 	#print("loading feed....\n")
 	#for post in feed.entries:
-#department_name = feed.feed.title
-#print("********** " + department_name + " **********")
+department_name = feed_deptname.feed.title
+print("********** " + department_name + " **********")
 while True:
 #	print(datetime.datetime.now().time())
 #	print("using code [ " + code + "]")
-	url="https://access.active911.com/interface/rss.php?"+code
+	#url="https://access.active911.com/interface/rss.php?"+code
 	
 	feed = feedparser.parse(url)
 	#print("loading feed....\n")
 	#for post in feed.entries:
-	department_name = feed.feed.title
+	#department_name = feed.feed.title
 	#print("********** " + department_name + " **********")
 	
 	
@@ -83,7 +83,7 @@ while True:
 	if (last_run != run_text):
 		
 		mixer.music.play()
-		print("********** " + department_name + " **********\n")
+		#print("********** " + department_name + " **********\n")
 		print("\n########## NEW CALL ##########")
 		print(run_text)
 		last_run = run_text
