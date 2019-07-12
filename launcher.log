@@ -1,0 +1,22 @@
+adding libs to sys.path
+debug:	 showing sys.path
+['/home/pi/code/active911_project', '/usr/lib/python37.zip', '/usr/lib/python3.7', '/usr/lib/python3.7/lib-dynload', '/home/pi/.local/lib/python3.7/site-packages', '/usr/local/lib/python3.7/dist-packages', '/usr/lib/python3/dist-packages', '/home/pi/.local/lib/python3.7/site-package']
+pygame 1.9.4.post1
+Hello from the pygame community. https://www.pygame.org/contribute.html
+debug:	 running in dir /home/pi
+debug:	sound subsystem loaded, loaded 4, selected idx:0
+Traceback (most recent call last):
+  File "/home/pi/.local/lib/python3.7/site-packages/feedparser.py", line 399, in __getattr__
+    return self.__getitem__(key)
+  File "/home/pi/.local/lib/python3.7/site-packages/feedparser.py", line 357, in __getitem__
+    return dict.__getitem__(self, key)
+KeyError: 'title'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/code/active911_project/run.py", line 64, in <module>
+    department_name = feed.feed.title
+  File "/home/pi/.local/lib/python3.7/site-packages/feedparser.py", line 401, in __getattr__
+    raise AttributeError("object has no attribute '%s'" % key)
+AttributeError: object has no attribute 'title'
