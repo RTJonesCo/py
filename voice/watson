@@ -1,0 +1,8 @@
+curl -X POST -u "apikey:VcK77_raDyYJJMOPw4zchX_4Sowc3ToBmgo3MQjmvaLH" --header "Content-Type: application/json" --header "Accept: audio/wav" --data "{\"text\":\"hello world\"}" --output hello_world.wav "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize"
+
+
+
+
+curl -X GET -u "apikey:VcK77_raDyYJJMOPw4zchX_4Sowc3ToBmgo3MQjmvaLH" \
+--output hello_world.wav \
+"https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize?accept=audio%2Fwav&text=hold%20the%20goddamn%20door%20Charlie!&voice=en-US_MichaelVoice"

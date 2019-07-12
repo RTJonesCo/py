@@ -1,0 +1,1 @@
+ curl -X POST -u "apikey:VcK77_raDyYJJMOPw4zchX_4Sowc3ToBmgo3MQjmvaLH" --header "Content-Type: application/json" --header "Accept: audio/wav" --data "{\"text\":\"Croft,                    ,BUSINESS FIRE ALARM,                    ,764 NORTH CHURCH ST., Spartanburg\"}" --output hello_world.wav "https://stream.watsonplatform.net/text-to-speech/api/v1/synthesize"
