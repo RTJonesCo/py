@@ -1,7 +1,11 @@
-DEBUG:root:command line args
-DEBUG:root:Namespace(alert=3, code='r3vd2ad')
-DEBUG:root:current running dir C:\code\active911
-DEBUG:root:sound subsystem initilized
-DEBUG:root:found 4 alert files
-DEBUG:root:selected idx:0
-DEBUG:root:initilize complete
+2019-07-18 17:02:08,592	DEBUG	MainThread	working dir C:\code\active911\
+2019-07-18 17:02:08,593	DEBUG	MainThread	loading alerts from alerts dir
+2019-07-18 17:02:08,593	DEBUG	MainThread	looking for alerts C:\code\active911\alerts
+2019-07-18 17:02:08,593	DEBUG	MainThread	no alert files found
+2019-07-18 17:02:08,593	DEBUG	MainThread	command line args
+2019-07-18 17:02:08,594	DEBUG	MainThread	Namespace(alert=3, code='r3vd1np', interval=1)
+2019-07-18 17:02:08,594	DEBUG	MainThread	current running dir C:\code\active911
+2019-07-18 17:02:08,594	DEBUG	MainThread	sound subsystem initilized
+2019-07-18 17:02:08,594	DEBUG	MainThread	found 4 alert files
+2019-07-18 17:02:08,594	DEBUG	MainThread	selected idx:0
+2019-07-18 17:02:08,594	DEBUG	MainThread	initilize complete

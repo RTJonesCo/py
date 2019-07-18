@@ -19,6 +19,12 @@ import feedparser
 import pickle
 from pygame import mixer
 
+logging.basicConfig(filename='active911.log',filemode='w',
+        level=logging.DEBUG,
+        format='%(asctime)s\t%(levelname)s\t%(threadName)-10s\t%(message)s',)
+
+	
+
 # croft code = "r3vd2ad"
 # duncan code ="r3vd1np"
 code = 'r3vd1np'
@@ -35,9 +41,25 @@ if os.name == "linux":
 	
 if os.name=="nt":
 	BASE_DIR = "C:\\code\\active911\\"
-		
+
 logging.debug("working dir " + BASE_DIR)
 
+def load_alert_from_dir():
+	logging.debug("loading alerts from alerts dir")
+	#print("debug:\tloading alerts from alerts dir")
+
+	directory = os.fsencode(BASE_DIR + "alerts")
+	logging.debug("looking for alerts " + BASE_DIR + "alerts")
+	for file in os.listdir(directory):
+		filename = os.fsdecode(file)
+		if filename.endswith(".wav") or filename.endswith(".mp3"): 
+        	# print(os.path.join(directory, filename))
+			logging.debug("found alert file:\t" + os.path.join(directory, filename))
+			#print("debug:\tfound alert file:\t" + os.path.join(directory, filename))
+			
+	else:
+		logging.debug("no alert files found")
+		#print("debug:\tno alert files found in alerts folder")
 
 def initilize():
 	global code 
@@ -45,7 +67,9 @@ def initilize():
 	global interval
 	#('-s', action='store', dest='simple_value',
 	#setup logger
-	logging.basicConfig(filename='active911.log', filemode='w', level=logging.DEBUG)
+	
+	
+	
 	#check the command line for options
 	parser = argparse.ArgumentParser(description='Connect to an active 911 feed, and monitor it for alerts')
 	parser.add_argument('--code',action='store',dest='code',default='r3vd1np',help='set the active911 rss feed code')
@@ -53,6 +77,9 @@ def initilize():
 	parser.add_argument('--interval',action='store',dest='interval',type=int,default=1,help='set the sleep time of the loop in seconds')
 
 	parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+	#load any extra alerts
+	load_alert_from_dir()
+
 	logging.debug("command line args")
 	args = parser.parse_args()
 	logging.debug(args)
