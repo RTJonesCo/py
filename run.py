@@ -65,6 +65,7 @@ def initilize():
 	global code 
 	global alert_file
 	global interval
+	music_idx = 0
 	#('-s', action='store', dest='simple_value',
 	#setup logger
 	
@@ -73,7 +74,7 @@ def initilize():
 	#check the command line for options
 	parser = argparse.ArgumentParser(description='Connect to an active 911 feed, and monitor it for alerts')
 	parser.add_argument('--code',action='store',dest='code',default='r3vd1np',help='set the active911 rss feed code')
-	parser.add_argument('--alert',action='store',dest='alert',type=int,help='set the active alert tone')
+	parser.add_argument('--alert',action='store',dest='alert',help='set the active alert tone')
 	parser.add_argument('--interval',action='store',dest='interval',type=int,default=1,help='set the sleep time of the loop in seconds')
 
 	parser.add_argument('--version', action='version', version='%(prog)s 1.0')
@@ -85,12 +86,18 @@ def initilize():
 	logging.debug(args)
 	interval = args.interval
 	code = args.code
-	music_idx = int(args.alert)
-	if music_idx <= music_index_len:
-		alert_file = music_index[music_idx]
+	
+	if args.alert is not None:
+		music_idx = int(args.alert)
+		if music_idx <= music_index_len:
+			alert_file = music_index[music_idx]
+		else:
+			alert_file = music_index[music_idx]
+		mixer.music.load(BASE_DIR + alert_file)
+
 	else:
 		alert_file = music_index[0]
-	mixer.music.load(BASE_DIR + alert_file)
+		mixer.music.load(BASE_DIR + alert_file)
 
 
 initilize()
