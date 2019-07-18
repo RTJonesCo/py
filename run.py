@@ -100,7 +100,10 @@ def initilize():
 		mixer.music.load(BASE_DIR + alert_file)
 
 
-initilize()
+
+
+if __name__ == "__main__":
+	initilize()
 logging.debug("current running dir " + os.getcwd())
 logging.debug("sound subsystem initilized")
 logging.debug("found " + str(music_index_len) + " alert files")
