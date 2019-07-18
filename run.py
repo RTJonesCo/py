@@ -3,6 +3,8 @@ import os
 import sys
 import time
 import datetime
+import argparse
+import logging
 
 
 #
@@ -17,9 +19,9 @@ import feedparser
 import pickle
 from pygame import mixer
 
-
-
-code = "r3vd2ad"
+# croft code = "r3vd2ad"
+# duncan code ="r3vd1np"
+code = 'r3vd1np'
 interval = 1
 last_run  = "empty"
 DATA_FILE = "last_run_data.obj"
@@ -28,32 +30,48 @@ alert_file ="empty"
 mixer.init()
 music_index_len = len(music_index)
 department_name = "empty"
-BASE_DIR = "/home/pi/code/active911_project/"
-#
+if os.name == "linux":
+	BASE_DIR = "/home/pi/code/active911_project/"
+	
+if os.name=="nt":
+	BASE_DIR = "C:\\code\\active911\\"
+		
+logging.debug("working dir " + BASE_DIR)
 
-#
-print("debug:\t running in dir " + os.getcwd())
 
-print("debug:\tsound subsystem loaded, loaded " + str(music_index_len)+", selected idx:0")
+def initilize():
+	global code 
+	global alert_file
+	global interval
+	#('-s', action='store', dest='simple_value',
+	#setup logger
+	logging.basicConfig(filename='active911.log', filemode='w', level=logging.DEBUG)
+	#check the command line for options
+	parser = argparse.ArgumentParser(description='Connect to an active 911 feed, and monitor it for alerts')
+	parser.add_argument('--code',action='store',dest='code',default='r3vd1np',help='set the active911 rss feed code')
+	parser.add_argument('--alert',action='store',dest='alert',type=int,help='set the active alert tone')
+	parser.add_argument('--interval',action='store',dest='interval',type=int,default=1,help='set the sleep time of the loop in seconds')
 
-alert_file = music_index[0]
-
-#url="https://feeds2.feedburner.com/TheGeeksOf3d"
-if len(sys.argv) == 2:
-	code = sys.argv[1]
-	print("debug:\tfound command line code: " + code)
-	alert_file = music_index[0]
-	print(music_index)
-if len(sys.argv) ==3:
-	code= sys.argv[1]
-	print("debug:\tfound command line code: " + code)
-	arg = sys.argv[2]
-	print("debug:\tselected music idx: " + arg)
-	music_idx = int(arg)
+	parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+	logging.debug("command line args")
+	args = parser.parse_args()
+	logging.debug(args)
+	interval = args.interval
+	code = args.code
+	music_idx = int(args.alert)
 	if music_idx <= music_index_len:
 		alert_file = music_index[music_idx]
+	else:
+		alert_file = music_index[0]
+	mixer.music.load(BASE_DIR + alert_file)
 
-mixer.music.load(BASE_DIR + alert_file)
+
+initilize()
+logging.debug("current running dir " + os.getcwd())
+logging.debug("sound subsystem initilized")
+logging.debug("found " + str(music_index_len) + " alert files")
+logging.debug("selected idx:0")
+logging.debug("initilize complete")
 
 #inital load then loop it
 url="https://access.active911.com/interface/rss.php?"+code
@@ -91,5 +109,3 @@ while True:
 		pickle.dump(last_run,data_file)
 		print(datetime.datetime.now().time())
 		time.sleep(interval)
-		
-		

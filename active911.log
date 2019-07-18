@@ -1,0 +1,7 @@
+DEBUG:root:command line args
+DEBUG:root:Namespace(alert=3, code='r3vd2ad')
+DEBUG:root:current running dir C:\code\active911
+DEBUG:root:sound subsystem initilized
+DEBUG:root:found 4 alert files
+DEBUG:root:selected idx:0
+DEBUG:root:initilize complete

@@ -1,0 +1,7 @@
+DEBUG:root:command line args
+DEBUG:root:ArgumentParser(prog='run.py', usage=None, description='Connect to an active 911 feed, and monitor it for alerts', formatter_class=<class 'argparse.HelpFormatter'>, conflict_handler='error', add_help=True)
+DEBUG:root:current running dirC:\code\active911
+DEBUG:root:sound subsystem initilized
+DEBUG:root:found 4alert files
+DEBUG:root:selected idx:0
+DEBUG:root:initilize complete
