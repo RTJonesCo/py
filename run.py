@@ -62,8 +62,17 @@ def save_config(code="r3vd1np",interval=1,alert="alert-tone.wav",last_run=""):
 
 def load_config():
 	logging.debug("Loading Config")
-	config = json.load(CONFIG_FILE)
-	logging.debug(config)
+	#logging.debug(config)
+	with open(CONFIG_FILE) as json_file:
+		config = json.load(json_file)
+		config = {
+			'code' : config['code'],
+			'interval' : config['interval'],
+			'alert' : config['alert'],
+			'last_run' : config['last_run']
+			}
+		logging.debug(config)
+
 	return config
 
 def load_alert_from_dir():
