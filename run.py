@@ -5,7 +5,7 @@ import time
 import datetime
 import argparse
 import logging
-
+import json
 
 #
 #hack to make the imports work correct
@@ -36,6 +36,7 @@ alert_file ="empty"
 mixer.init()
 music_index_len = len(music_index)
 department_name = "empty"
+CONFIG_FILE = 'config.json'
 if os.name == "linux":
 	BASE_DIR = "/home/pi/code/active911_project/"
 	
@@ -43,6 +44,27 @@ if os.name=="nt":
 	BASE_DIR = "C:\\code\\active911\\"
 
 logging.debug("working dir " + BASE_DIR)
+
+
+
+def save_config(code="r3vd1np",interval=1,alert="alert-tone.wav",last_run=""):
+	logging.debug("saving config")
+	config = {
+		'code': code,
+		'interval' : interval,
+		'alert' : alert,
+		'last_run' : last_run
+	}
+	logging.debug(config)
+	with open(CONFIG_FILE, 'w') as f:  # writing JSON object
+		json.dump(config, f)
+		logging.debug('config file saved..')
+
+def load_config():
+	logging.debug("Loading Config")
+	config = json.load(CONFIG_FILE)
+	logging.debug(config)
+	return config
 
 def load_alert_from_dir():
 	logging.debug("loading alerts from alerts dir")
@@ -80,7 +102,9 @@ def initilize():
 	parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 	#load any extra alerts
 	load_alert_from_dir()
-
+	#load the config overwrite default app settings 
+	config = load_config()
+	#
 	logging.debug("command line args")
 	args = parser.parse_args()
 	logging.debug(args)
@@ -118,6 +142,7 @@ feed_deptname = feedparser.parse(url)
 	#for post in feed.entries:
 department_name = feed_deptname.feed.title
 print("********** " + department_name + " **********")
+save_config()
 while True:
 #	print(datetime.datetime.now().time())
 #	print("using code [ " + code + "]")
